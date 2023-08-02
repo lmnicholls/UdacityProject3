@@ -1,6 +1,18 @@
 # Resource Group/Location
-variable "location" {}
-variable "resource_group" {}
+variable "location" {
+    type = string
+    default = "West Europe"
+}
+variable "resource_group" {
+    type = string
+    default = "Azuredevops"
+}
 
-variable "application_type" {}
-variable "resource_type" {}
+variable "application_type" {
+    type = string
+    default = "MyApplication"
+}
+variable "resource_type" {
+    type = string
+    default = "PublicIp"
+}

@@ -1,3 +1,3 @@
-name,salary,age
-John,50000,30
-Alice,60000,28
+id,title,body,userId
+1,hello,world,1
+2,hello,community,2
