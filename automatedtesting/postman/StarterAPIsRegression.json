@@ -137,23 +137,25 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const baseUrl = \"https://dummyjson.com/products/\";",
-							"const productId = pm.environment.get(\"productId\");",
+							"// Set the ID of the post to delete",
+							"var postId = 1;",
 							"",
-							"// Send the DELETE request",
+							"// Perform a DELETE request",
 							"pm.sendRequest({",
-							"    url: baseUrl + productId,",
-							"    method: \"DELETE\"",
+							"  url: 'http://jsonplaceholder.typicode.com/posts/' + postId,",
+							"  method: 'DELETE',",
+							"  header: 'Content-Type: application/json',",
 							"}, function (err, response) {",
-							"    // Verify that there are no errors in the response",
-							"    pm.test(\"No errors in response\", function () {",
-							"        pm.expect(err).to.be.null;",
-							"    });",
+							"  // Check if the request was successful (status code 200 or 204)",
+							"  pm.test('Status code is 200 OK', function () {",
+							"    pm.expect(response.code).to.be.oneOf([200, 204]);",
+							"  });",
 							"",
-							"    // Verify the response status code is 200",
-							"    pm.test(\"Successful deletion - Status code is 200 or 204\", function () {",
-							"        pm.response.to.have.status.oneOf([200, 204]);",
-							"    });",
+							"  // Validate that the post has been deleted",
+							"  pm.test('Post with ID ' + postId + ' has been deleted', function () {",
+							"    pm.expect(response.code).to.equal(200);",
+							"    pm.expect(response.text()).to.equal('{}');",
+							"  });",
 							"});",
 							""
 						],
@@ -164,7 +166,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "https://dummyjson.com/products/{{productId}}"
+				"url": "http://jsonplaceholder.typicode.com/posts/{{postId}}"
 			},
 			"response": []
 		}

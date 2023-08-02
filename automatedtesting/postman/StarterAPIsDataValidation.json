@@ -13,6 +13,36 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"// Perform a POST request with the JSON payload",
+							"pm.sendRequest({",
+							"  url: 'http://jsonplaceholder.typicode.com/posts',",
+							"  method: 'POST',",
+							"  header: 'Content-Type: application/json',",
+							"  body: {",
+							"    mode: 'raw',",
+							"    raw: JSON.stringify({",
+							"      \"title\": \"Test Post\",",
+							"      \"body\": \"This is a test.\",",
+							"      \"userId\": 1",
+							"    })",
+							"  }",
+							"}, function (err, response) {",
+							"  // Check if the request was successful",
+							"  pm.test('Status code is 201 Created', function () {",
+							"    pm.expect(response.code).to.equal(201);",
+							"  });",
+							"",
+							"  // Parse the response body as JSON",
+							"  var jsonData = response.json();",
+							"",
+							"  // Check if the response contains the required properties for the new post",
+							"  pm.test('Response has required properties for the new post', function () {",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('title', 'Test Post');",
+							"    pm.expect(jsonData).to.have.property('body', 'This is a test.');",
+							"    pm.expect(jsonData).to.have.property('userId', 1);",
+							"  });",
+							"});",
 							""
 						],
 						"type": "text/javascript"
@@ -24,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"title\": \"{{title}}\",\n  \"body\": \"{{body}}\",\n  \"userId\": 1\n}\n",
+					"raw": "{\n  \"title\": \"{{title}}\",\n  \"body\": \"{{body}}\",\n  \"userId\": {{userId}}\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,7 +72,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"// Perform a POST request with the JSON payload",
+							"// Perform a PUT request with the JSON payload",
 							"pm.sendRequest({",
 							"  url: 'http://jsonplaceholder.typicode.com/posts',",
 							"  method: 'POST',",
@@ -101,21 +131,28 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"// Verify the response contains the expected data",
-							"pm.test(\"GET - Data Validation\", function () {",
-							"    pm.response.to.have.jsonBody(\"status\", \"success\");",
-							"    pm.response.to.have.jsonBody(\"data\", pm.jsonSchema({",
-							"        type: \"array\",",
-							"        items: {",
-							"            type: \"object\",",
-							"            properties: {",
-							"                id: { type: \"integer\" },",
-							"                title: { type: \"string\" },",
-							"                price: { type: \"string\" }",
-							"            },",
-							"            required: [\"id\", \"title\", \"price\"]",
-							"        }",
-							"    }));",
+							"// Perform a GET request",
+							"pm.sendRequest({",
+							"  url: 'http://jsonplaceholder.typicode.com/posts',",
+							"  method: 'GET',",
+							"}, function (err, response) {",
+							"  // Parse the response body as JSON",
+							"  var jsonData = response.json();",
+							"",
+							"  // Check if the response is an array of posts",
+							"  pm.test('Response is an array', function () {",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"  });",
+							"",
+							"  // Check if each post in the response has required properties",
+							"  jsonData.forEach(function (post) {",
+							"    pm.test('Post has required properties', function () {",
+							"      pm.expect(post).to.have.property('userId');",
+							"      pm.expect(post).to.have.property('id');",
+							"      pm.expect(post).to.have.property('title');",
+							"      pm.expect(post).to.have.property('body');",
+							"    });",
+							"  });",
 							"});",
 							""
 						],
@@ -126,7 +163,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "https://dummyjson.com/products"
+				"url": "http://jsonplaceholder.typicode.com/posts"
 			},
 			"response": []
 		},
