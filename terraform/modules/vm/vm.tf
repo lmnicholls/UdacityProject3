@@ -1,6 +1,6 @@
 resource "azurerm_network_interface" "" {
   name                = "MyNetworkInterface"
-  location            = "East US"
+  location            = "South Central US"
   resource_group_name = "Azuredevops"
 
   ip_configuration {
@@ -13,14 +13,14 @@ resource "azurerm_network_interface" "" {
 
 resource "azurerm_linux_virtual_machine" "" {
   name                = "MyVM"
-  location            = "East US"
+  location            = "South Central US"
   resource_group_name = "Azuredevops"
   size                = "Standard_DS2_v2"
   admin_username      = "adminuser"
   network_interface_ids = []
   admin_ssh_key {
     username   = "adminuser"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCy/bcs/JUh2cf3sQQveOeSkcR5qKCaGAYA+M571kGK6w/MxEdD/dao4Vvj/4RHsosubKfn30BcPvIZfy47CqYPhCrbtJAcn68l4I5rPdP+Cg2XNBgsozj+Cl2aN6pMKOCjxzDR6Cz8vx7yTscA/AUJ/zIK/1J8m0uvzCqMUL3YyCP4BJfuRBLt9/GtgfW4svzvvNEFsuNYc/VjWmHU60f3CoyM0Q500sFoMYrfBNfRS8lazsurfwRbuUHxX9++dKqFritS2Sgx94nqTMnW8J2rR5h1dsApuU5DCvLFm5BpteGLFtdgpSlQuEj56jZ5htesMsOcSQ5FomZQsEFhnPGZ16/rJGnB5hgXsmYnpZGRFXMxpgxCb9ZD/uNnKTopwVtGCnNRhcR0MAJ/M9pyc1a5JgI7A74RgbsG9SonxvXVX5Bfd/1nX8tmGv0B+QamHQ0GO/LAhcS26gKHRpdcj5zNDeU9BosIIpmr6mjIjDcKtC+eC1vBvH8oz8OC1gsJ2Y0= lnicholls@RELIAS-R90VR4HC"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAY/5crDOvVR8qEEUBg8FIvBF6spH2hDjp5JkmaGbTgfKdG08AMfrBNZF8yb8CM52E+7Aisvhb4xxAs/DINc+FWT2d/b8lnvNBmwY7x3BvYg2sQXtaM0TcGLBGZP6LqTdDEPFmvhpECFE0OC9B6eY3YHCDDgksQmyumYeCA0qFltPcKKVxBE3n62+1zDOzjJMrnnMb1H/EbOQX5ZPiBEhS9rPhPz6CSRRhtQC1zYNchmFoRlm1P1KnaV7nNnJvQ5Dc/UlHab1pfmUnF7S8QbzaVMf/5gyxZtYzjw8kWFL7+quCaKjPDudl0BCbguJd0r1aJYLEfQId2b0s/a5KuBDCEcg4G8nnm8tK0Bn9e+vcRWDOcwO0zpZVvQERHCHx/v8DHU5YXynv3dhgnlAy7tYOV8YhTWos3+Ao1LnvRE4uOlsrk7S5ez/5ZAiuU4rZroG4IV/holgSGs6VJTuTZm5UQYVllk8Jc0+WgxNPKDai/Pu6i2xZrtBO+OkGxbeA3n8= lnicholls@RELIAS-R90VR4HC"
   }
   os_disk {
     caching           = "ReadWrite"

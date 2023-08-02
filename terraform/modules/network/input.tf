@@ -5,7 +5,7 @@ variable resource_group {
 }
 variable location {
     type    = string
-    default = "West Europe"
+    default = "South Central US"
 }
 # Network
 variable virtual_network_name {

@@ -1,7 +1,7 @@
 # Resource Group
 variable location {
     type = string
-    default = "West Europe"
+    default = "South Central US"
 }
 variable "resource_group" {
     type = string
