@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "0fc16114-b924-4615-b04c-b595ffd1b24a",
+		"name": "StarterAPIsDataValidation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15654075"
+	},
+	"item": [
+		{
+			"name": "Create Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"{{title}}\",\n  \"body\": \"{{body}}\",\n  \"userId\": 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://jsonplaceholder.typicode.com/posts"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Perform a POST request with the JSON payload",
+							"pm.sendRequest({",
+							"  url: 'http://jsonplaceholder.typicode.com/posts',",
+							"  method: 'POST',",
+							"  header: 'Content-Type: application/json',",
+							"  body: {",
+							"    mode: 'raw',",
+							"    raw: JSON.stringify({",
+							"      \"title\": \"New Post\",",
+							"      \"body\": \"This is the content of the new post.\",",
+							"      \"userId\": 1",
+							"    })",
+							"  }",
+							"}, function (err, response) {",
+							"  // Check if the request was successful",
+							"  pm.test('Status code is 201 Created', function () {",
+							"    pm.expect(response.code).to.equal(201);",
+							"  });",
+							"",
+							"  // Parse the response body as JSON",
+							"  var jsonData = response.json();",
+							"",
+							"  // Check if the response contains the required properties for the new post",
+							"  pm.test('Response has required properties for the new post', function () {",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('title', 'New Post');",
+							"    pm.expect(jsonData).to.have.property('body', 'This is the content of the new post.');",
+							"    pm.expect(jsonData).to.have.property('userId', 1);",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"{{title}}\",\n  \"body\": \"{{body}}\",\n  \"userId\": 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://jsonplaceholder.typicode.com/posts/{{postId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the response contains the expected data",
+							"pm.test(\"GET - Data Validation\", function () {",
+							"    pm.response.to.have.jsonBody(\"status\", \"success\");",
+							"    pm.response.to.have.jsonBody(\"data\", pm.jsonSchema({",
+							"        type: \"array\",",
+							"        items: {",
+							"            type: \"object\",",
+							"            properties: {",
+							"                id: { type: \"integer\" },",
+							"                title: { type: \"string\" },",
+							"                price: { type: \"string\" }",
+							"            },",
+							"            required: [\"id\", \"title\", \"price\"]",
+							"        }",
+							"    }));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://dummyjson.com/products"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the ID of the post to delete",
+							"var postId = 1;",
+							"",
+							"// Perform a DELETE request",
+							"pm.sendRequest({",
+							"  url: 'http://jsonplaceholder.typicode.com/posts/' + postId,",
+							"  method: 'DELETE',",
+							"  header: 'Content-Type: application/json',",
+							"}, function (err, response) {",
+							"  // Check if the request was successful (status code 200 or 204)",
+							"  pm.test('Status code is 200 OK', function () {",
+							"    pm.expect(response.code).to.be.oneOf([200, 204]);",
+							"  });",
+							"",
+							"  // Validate that the post has been deleted",
+							"  pm.test('Post with ID ' + postId + ' has been deleted', function () {",
+							"    pm.expect(response.code).to.be.oneOf([200, 204]);",
+							"    pm.expect(response.text()).to.equal('{}');",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://jsonplaceholder.typicode.com/posts/{{postId}}"
+			},
+			"response": []
+		}
+	]
+}

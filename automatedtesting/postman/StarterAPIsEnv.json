@@ -1,0 +1,33 @@
+{
+	"id": "c904367f-bd52-480a-9704-a208e983c8a4",
+	"name": "StarterAPIsEnv",
+	"values": [
+		{
+			"key": "title",
+			"value": "Finding a dummy api that works is hard",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "body",
+			"value": "Ugghh",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "postId",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userId",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-08-02T13:52:59.713Z",
+	"_postman_exported_using": "Postman/10.16.3"
+}
