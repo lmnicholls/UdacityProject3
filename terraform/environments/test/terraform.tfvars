@@ -1,12 +1,12 @@
 # STEP 1: UPDATE SUBSCRIPTION VARS AND RESOURCE GROUP/LOCATION
 # Azure subscription vars
-subscription_id = "0c7436df-9359-4a04-b572-96ab6d89334c" # Subscription Id
-client_id = "489f7ef5-4fed-4ec0-bc96-dfaaf1db93e9" # Application Id
-client_secret = "3Q58Q~h70itu636gKbe78.L4di4FQSl4jUsjnb5x" # Secret Key
+subscription_id = "0ee6d06f-69ab-4b3b-9f35-003e1b6eb227" # Subscription Id
+client_id = "bbe619d6-3908-4ee0-9c38-7d8482e1f72a" # Application Id
+client_secret = "GFm8Q~BPO9ZkuyqEfsHpmInwZsNPxpSDCPMijbuW" # Secret Key
 tenant_id = "f958e84a-92b8-439f-a62d-4f45996b6d07" # Tenant Id
 
 # Resource Group/Location
-location = "South Central US"
+location = "East US"
 resource_group_name = "Azuredevops"
 application_type = "myApplication"
 

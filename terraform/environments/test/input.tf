@@ -1,15 +1,15 @@
 # Azure GUIDS
 variable "subscription_id" {
     type = string
-    default = "7de72e36-dc87-4e3f-aa67-6dacbc9993c6"
+    default = "0ee6d06f-69ab-4b3b-9f35-003e1b6eb227"
 }
 variable "client_id" {
     type = string
-    default = "75eb3e5b-c883-4fc0-a8f2-1742334aa537"
+    default = "bbe619d6-3908-4ee0-9c38-7d8482e1f72a"
 }
 variable "client_secret" {
     type = string
-    default = "Flm8Q~is6pJ115U4lHuZgyg3ll3gs8mZsJXPKbVL"
+    default = "GFm8Q~BPO9ZkuyqEfsHpmInwZsNPxpSDCPMijbuW"
 }
 variable "tenant_id" {
     type = string
@@ -19,7 +19,7 @@ variable "tenant_id" {
 # Resource Group/Location
 variable "location" {
     type = string
-    default = "South Central US"
+    default = "East US"
 }
 variable "resource_group" {
     type = string

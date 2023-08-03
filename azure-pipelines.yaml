@@ -8,7 +8,8 @@ trigger:
 
 # ToDo: Replace the agent pool name, if you are using Udacity Cloud lab. 
 # Otherwise, comment out the line below. 
-pool: 'Project3'
+pool:
+  image: 
 
 variables:
   python.version: '3.7.6'
@@ -45,7 +46,7 @@ stages:
         workingDirectory: '$(projectRoot)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: 'tfstate525914396'
+        backendAzureRmStorageAccountName: 'tfstate1381018869'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
@@ -179,7 +180,8 @@ stages:
   # Deploy FakeRestAPI Web App
   # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
-    pool: 'Project3'      
+    pool: 
+      image: 'VMImage'      
     environment: $(environmentName)   # ToDo
     strategy:
       runOnce:
