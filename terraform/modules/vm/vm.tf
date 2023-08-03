@@ -11,20 +11,21 @@ resource "azurerm_network_interface" "" {
   }
 }
 
-resource "azurerm_linux_virtual_machine" "" {
-  name                = "linux-vm"
+resource "azurerm_windows_virtual_machine" "" {
+  name                = "windows-vm"
   location            = "East US"
   resource_group_name = "Azuredevops"
   size                = "Standard_DS1_v2"
-  admin_username      = "azureuser"
+  admin_username      = "devopsagent"
+  admin_password      = "DevOpsAgent@123"
   network_interface_ids = []
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD2jPrC7YjBW/GN0iLDrgv/UXsam9JwnNtzDIjHaxCxsXiVCCAcRQ6KoFzndMxjUKb0GjgwAsbMmoKcoJQpbppPi/FDnXEYxQ980RKEPGEVVSbEnoHoG8MvjC5CNFkeeENQkaL3ybo2yAOI6cHCQNUbS3ZYuwkZr4tJwgScZPTFnosKUke6ekc8yYctQyUSQHedV3ayLkQP+o+xgNBrpqxXuq/P0fVXyvlRc4DEe/e2hrkfuliXmmoyVJYprEyfXL8KjJwL42LHq+3P5su0nqv4d7h1dAlGt/xnRWgXhgbsdwy7FEEBb9L/jsB15dQlMZWQPpbaFZKpAyrsJbNbDQY1pt+wKX5+tmzznhJLp0TA9MiSJ4g2ZoAQl10PwiVlK94zS+VnCANhD30AILYrhGfQfBP6kzxxzXlSad2EJO0SpGuJNl9KvQvxQBSU0IodEi2vyesewmlQKILpoHOVoBYXpxN++xbKEM+U0+7MVgJZCc7gWMhF02CzGHkkIIKkYQk= relias\\lnicholls@RELIAS-R90VR4HC"
-  }
+  # admin_ssh_key {
+  #   username   = "adminuser"
+  #   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD2jPrC7YjBW/GN0iLDrgv/UXsam9JwnNtzDIjHaxCxsXiVCCAcRQ6KoFzndMxjUKb0GjgwAsbMmoKcoJQpbppPi/FDnXEYxQ980RKEPGEVVSbEnoHoG8MvjC5CNFkeeENQkaL3ybo2yAOI6cHCQNUbS3ZYuwkZr4tJwgScZPTFnosKUke6ekc8yYctQyUSQHedV3ayLkQP+o+xgNBrpqxXuq/P0fVXyvlRc4DEe/e2hrkfuliXmmoyVJYprEyfXL8KjJwL42LHq+3P5su0nqv4d7h1dAlGt/xnRWgXhgbsdwy7FEEBb9L/jsB15dQlMZWQPpbaFZKpAyrsJbNbDQY1pt+wKX5+tmzznhJLp0TA9MiSJ4g2ZoAQl10PwiVlK94zS+VnCANhD30AILYrhGfQfBP6kzxxzXlSad2EJO0SpGuJNl9KvQvxQBSU0IodEi2vyesewmlQKILpoHOVoBYXpxN++xbKEM+U0+7MVgJZCc7gWMhF02CzGHkkIIKkYQk= relias\\lnicholls@RELIAS-R90VR4HC"
+  # }
   os_disk {
     caching           = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
-  source_image_id = "VMImage"
+  source_image_id = "WindowsVMImage"
 }

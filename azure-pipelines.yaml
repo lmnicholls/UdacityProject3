@@ -218,8 +218,7 @@ stages:
         deploy:
           steps:
           - download: current
-            displayName: Download Selenium
-            artifact: 'drop-uitests'     # ToDo: Change/provide a name
+            artifact: drop-uitests    # ToDo: Change/provide a name
             
           - task: Bash@3
             inputs:
