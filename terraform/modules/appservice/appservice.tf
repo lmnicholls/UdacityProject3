@@ -4,6 +4,7 @@ resource "azurerm_service_plan" "test" {
   resource_group_name = "${var.resource_group}"
   os_type             = "Windows"
   sku_name            = "F1"
+  dotnet_version = "v6.0"
 }
 
 resource "azurerm_windows_web_app" "test" {
@@ -17,8 +18,5 @@ resource "azurerm_windows_web_app" "test" {
   }
   site_config {
     always_on = false
-  }
-  application_stack {
-    dotnet_version = "v6.0"
   }
 }
