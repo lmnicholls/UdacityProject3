@@ -17,6 +17,8 @@ resource "azurerm_windows_web_app" "test" {
   }
   site_config {
     always_on = false
+  }
+  application_stack {
     dotnet_version = "v6.0"
   }
 }
