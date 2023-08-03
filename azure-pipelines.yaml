@@ -180,7 +180,7 @@ stages:
   # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
     pool: 'agentPool'    
-    environment: $(environmentName)   # ToDo
+    environment: 'linux-vm'   # ToDo
     strategy:
       runOnce:
         deploy:
