@@ -146,7 +146,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: $(projectRoot)/fakerestapi
+        rootFolderOrFile: $(projectRoot)/automatedtesting/fakerestapi
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.BuildId)-fakerestapi.zip'
