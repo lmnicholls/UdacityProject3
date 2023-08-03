@@ -12,11 +12,11 @@ resource "azurerm_network_interface" "" {
 }
 
 resource "azurerm_linux_virtual_machine" "" {
-  name                = "Project3VM"
+  name                = "linux-vm"
   location            = "East US"
   resource_group_name = "Azuredevops"
-  size                = "Standard_DS2_v2"
-  admin_username      = "adminuser"
+  size                = "Standard_DS1_v2"
+  admin_username      = "azureuser"
   network_interface_ids = []
   admin_ssh_key {
     username   = "adminuser"
