@@ -13,7 +13,7 @@ resource "azurerm_network_interface" "" {
 
 resource "azurerm_linux_virtual_machine" "" {
   name                = "Project3VM"
-  location            = "South Central US"
+  location            = "East US"
   resource_group_name = "Azuredevops"
   size                = "Standard_DS2_v2"
   admin_username      = "azureuser"

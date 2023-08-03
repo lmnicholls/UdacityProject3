@@ -1,7 +1,7 @@
 # Resource Group/Location
 variable "location" {
     type = string
-    default = "South Central US"
+    default = "East US"
 }
 variable "application_type" {
     type = string
