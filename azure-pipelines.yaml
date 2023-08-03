@@ -180,7 +180,7 @@ stages:
   # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
     pool: 'agentPool'    
-    environment: 'linux-vm'   # ToDo
+    environment: $(environmentName)   # ToDo
     strategy:
       runOnce:
         deploy:
@@ -210,7 +210,7 @@ stages:
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: $(environmentName)     # ToDo: Change/provide a name
+      name: 'linux-vm'     # ToDo: Change/provide a name
       resourceType: VirtualMachine
       tags: selenium
     strategy:
