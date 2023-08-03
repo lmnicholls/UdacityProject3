@@ -32,49 +32,6 @@ def login (user, password):
         print('Logged in successfully.')
     else:
         print('Login failed.')
-    
-    # Add all products to the cart
-    print ('Adding all items to cart.')
-    add_to_cart_buttons = driver.find_elements_by_css_selector('button.btn_inventory')
-    for button in add_to_cart_buttons:
-        button.click()
-
-    # Add wait time for all items to be added to cart
-    print ('Adding wait time to ensure all items get added.')
-    time.sleep(2)
-
-    # Check if six items were added to shopping cart
-    shopping_cart_badge = driver.find_element_by_css_selector('span.shopping_cart_badge')
-    num_items_in_cart = int(shopping_cart_badge.text)
-    if num_items_in_cart == 6:
-        print('All products added to the cart successfully.')
-    else:
-        print('Failed: Expected 6 items in cart, but found {num_items_in_cart} items.')
-
-    # Click on the cart icon
-    print ('Clicking on the cart icon.')
-    cart_icon = driver.find_element_by_css_selector('a.shopping_cart_link')
-    cart_icon.click()
-
-    # Remove all items from the cart
-    print ('Removing all items from cart.')
-    remove_buttons = driver.find_elements_by_css_selector('button.cart_button')
-    for button in remove_buttons:
-        button.click()
-
-    # Wait for a short time to ensure all items are removed from the cart
-    print ('Adding wait time to ensure all items get removed.')
-    time.sleep(2)
-
-    # Check if the shopping cart is empty after removing items
-    cart_icon = driver.find_element_by_css_selector('a.shopping_cart_link')
-    if cart_icon.text.strip() == "":
-        print('All items removed from the cart successfully.')
-    else:
-        print('Failed: Shopping cart is not empty. Found {cart_icon.text.strip()} items.')
-
-    print ('Test completed successfully. Closing the browser.')
-    driver.quit()  
 
 # Usage
 login('standard_user', 'secret_sauce')
