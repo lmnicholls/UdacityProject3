@@ -202,7 +202,7 @@ stages:
                 unzip -o $(Build.BuildId)-perftests.zip
                 ./apache-jmeter-5.2.1/bin/jmeter -n -t MyTestPlan.jmx -j jmeter.log -f
                 cat jmeter.log
-              workingDirectory: $(Pipeline.Workspace)/$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip          # ToDo: Use the artifact name from the task above
+              workingDirectory: $(Pipeline.Workspace)/drop-perftests          # ToDo: Use the artifact name from the task above
               
   #--------------------------------------------#  
   # Selenium | Functional UI Tests
