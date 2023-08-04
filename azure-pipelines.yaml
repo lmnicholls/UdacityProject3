@@ -287,7 +287,8 @@ stages:
 
                 Write-Host "Run add_remove_from_cart python script"
                 # Run the Python script 'add_remove_from_cart.py' and redirect output to 'selenium.log'
-                python3 add_remove_from_cart.py >> selenium.log
+                
+                C:\Users\devopsagent\AppData\Local\Programs\Python\python.exe add_remove_from_cart.py >> selenium.log
 
                 # Print a message indicating that Selenium Tests have completed
                 Write-Host "Completed Selenium Tests. Check selenium.log for results."
