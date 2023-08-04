@@ -244,7 +244,7 @@ stages:
                 }
                 $sourcePath = "C:\azagent\A1\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip"
                 $destinationPath = "C:\Users\devopsagent\app"
-                $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_linux64.zip"
+                $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_win64.zip"
 
                 # Move the uitests.zip file to the 'app' folder
                 Move-Item -Path $sourcePath -Destination $destinationPath
@@ -265,7 +265,7 @@ stages:
                     Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/win64/chromedriver-win64.zip" -OutFile "chromedriver_win64.zip -UseBasicParsing"
 
                     # Unzip the chromedriver zip file
-                    Expand-Archive -Path "chromedriver_linux64.zip" -DestinationPath $destinationPath -Force
+                    Expand-Archive -Path "chromedriver_win64.zip" -DestinationPath $destinationPath -Force
 
                     # Create a symbolic link to chromedriver for global accessibility
                     New-Item -ItemType SymbolicLink -Path "C:\Users\devopsagent\AppData\Local\Temp\chromedriver" -Target "$destinationPath\chromedriver.exe" -Force
