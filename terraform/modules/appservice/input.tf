@@ -6,7 +6,7 @@ variable "location" {
 
 variable "application_type" {
     type = string
-    default = "MyApplication"
+    default = "Project3"
 }
 variable "resource_type" {
     type = string
