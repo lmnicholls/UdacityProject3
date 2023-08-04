@@ -260,11 +260,9 @@ stages:
 
                 # Check if the chromedriver file exists, if not, download and install it
                 if (-Not (Test-Path -Path $FILE -PathType Leaf)) {
-                    # Get the latest chromedriver version
-                    $LATEST = (Invoke-WebRequest -Uri "http://chromedriver.storage.googleapis.com/LATEST_RELEASE" -UseBasicParsing).Content.Trim()
 
                     # Download the chromedriver zip file
-                    Invoke-WebRequest -Uri "http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_win64.zip" -OutFile "chromedriver_win64.zip -UseBasicParsing"
+                    Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/win64/chromedriver-win64.zip" -OutFile "chromedriver_win64.zip -UseBasicParsing"
 
                     # Unzip the chromedriver zip file
                     Expand-Archive -Path "chromedriver_linux64.zip" -DestinationPath $destinationPath -Force
