@@ -242,7 +242,7 @@ stages:
                 if (-Not (Test-Path -Path $DIR -PathType Container)) {
                     New-Item -ItemType Directory -Path $DIR | Out-Null
                 }
-                $sourcePath = "C:\azagent\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip"
+                $sourcePath = "C:\azagent\A1\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip"
                 $destinationPath = "C:\Users\devopsagent\app"
                 $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_linux64.zip"
 
