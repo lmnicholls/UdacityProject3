@@ -197,12 +197,12 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                wget "https://apache.mirrors.lucidnetworks.net/jmeter/binaries/apache-jmeter-5.2.1.tgz"
-                tar -xf apache-jmeter-5.2.1.tgz
+                wget "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz"
+                tar -xf apache-jmeter-5.6.2.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
-                ./apache-jmeter-5.2.1/bin/jmeter -n -t MyTestPlan.jmx -j jmeter.log -f
+                ./apache-jmeter-5.6.2/bin/jmeter -n -t MyTestPlan.jmx -j jmeter.log -f
                 cat jmeter.log
-              workingDirectory: $(Pipeline.Workspace)/drop-perftests          # ToDo: Use the artifact name from the task above
+              workingDirectory: $(Pipeline.Workspace)/drop-perftests
               
   #--------------------------------------------#  
   # Selenium | Functional UI Tests
