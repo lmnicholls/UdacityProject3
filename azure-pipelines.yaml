@@ -268,7 +268,7 @@ stages:
                 if (-Not (Test-Path -Path $FILE -PathType Leaf)) {
 
                     # Download the chromedriver zip file
-                    Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/win64/chromedriver-win64.zip" -OutFile "chromedriver_win64.zip -UseBasicParsing"
+                    Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/win64/chromedriver-win64.zip" -OutFile "chromedriver_win64.zip" -UseBasicParsing
 
                     # Unzip the chromedriver zip file
                     Expand-Archive -Path "chromedriver_win64.zip" -DestinationPath $destinationPath -Force
