@@ -218,7 +218,7 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: drop-uitests'    # ToDo: Change/provide a name
+            artifact: drop-uitests    # ToDo: Change/provide a name
           
           - task: Bash@3
             inputs:
@@ -242,9 +242,9 @@ stages:
                 if (-Not (Test-Path -Path $DIR -PathType Container)) {
                     New-Item -ItemType Directory -Path $DIR | Out-Null
                 }
-                $sourcePath = "C:\Users\devopsagent\azagent\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip" # Replace with the appropriate source path on your system
-                $destinationPath = "C:\Users\devopsagent\app" # Replace with the appropriate destination path on your system
-                $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_linux64.zip" # Replace with the appropriate chromedriver zip path on your system
+                $sourcePath = "C:\Users\devopsagent\azagent\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip"
+                $destinationPath = "C:\Users\devopsagent\app"
+                $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_linux64.zip"
 
                 # Move the uitests.zip file to the 'app' folder
                 Move-Item -Path $sourcePath -Destination $destinationPath
@@ -255,7 +255,7 @@ stages:
                 # Unzip the uitests.zip file
                 Expand-Archive -Path "$(Build.BuildId)-uitests.zip" -DestinationPath $destinationPath -Force
 
-                # Set the FILE variable to the chromedriver_linux64.zip path
+                # Set the FILE variable to the chromedriver_win64.zip path
                 $FILE = $chromedriverZipPath
 
                 # Check if the chromedriver file exists, if not, download and install it

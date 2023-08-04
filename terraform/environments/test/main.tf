@@ -53,3 +53,7 @@ module "publicip" {
   resource_type    = "publicip"
   resource_group   = data.azurerm_resource_group.azuredevops.name
 }
+
+module "vm" {
+  source           = "../../modules/vm"
+}
