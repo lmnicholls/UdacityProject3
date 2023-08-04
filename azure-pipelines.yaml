@@ -224,6 +224,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |           
+                Write-Host "Installing papckages"
                 Start-Process powershell -Verb runAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command { 
                   # Upgrade installed packages
                   apt-get upgrade -y
@@ -245,19 +246,24 @@ stages:
                 $sourcePath = "C:\azagent\A1\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip"
                 $destinationPath = "C:\Users\devopsagent\app"
                 $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_win64.zip"
-
+                
+                Write-Host "Move uitests to app folder"
                 # Move the uitests.zip file to the 'app' folder
                 Move-Item -Path $sourcePath -Destination $destinationPath
 
+                Write-Host "Change directory to app folder"
                 # Change current directory to the 'app' folder
                 Set-Location $destinationPath
 
+                Write-Host "Unzip uitests file"
                 # Unzip the uitests.zip file
                 Expand-Archive -Path "$(Build.BuildId)-uitests.zip" -DestinationPath $destinationPath -Force
 
+                Write-Host "Set file variable to chromedriver path"
                 # Set the FILE variable to the chromedriver_win64.zip path
                 $FILE = $chromedriverZipPath
 
+                Write-Host "Check if chromedriver file exists and if not download and install it"
                 # Check if the chromedriver file exists, if not, download and install it
                 if (-Not (Test-Path -Path $FILE -PathType Leaf)) {
 
@@ -271,12 +277,15 @@ stages:
                     New-Item -ItemType SymbolicLink -Path "C:\Users\devopsagent\AppData\Local\Temp\chromedriver" -Target "$destinationPath\chromedriver.exe" -Force
                     Move-Item -Path "C:\Users\devopsagent\AppData\Local\Temp\chromedriver" -Destination "C:\Program Files\chromedriver" -Force
                 }
+
+                Write-Host "Add app folder to path env variable"
                 # Add the 'app' folder to the PATH environment variable
                 $env:PATH += ";C:\Users\devopsagent\app"
 
                 # Print a message indicating that Selenium Tests are starting
                 Write-Host "Starting Selenium Tests"
 
+                Write-Host "Run add_remove_from_cart python script"
                 # Run the Python script 'add_remove_from_cart.py' and redirect output to 'selenium.log'
                 python add_remove_from_cart.py >> selenium.log
 
