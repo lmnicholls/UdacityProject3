@@ -45,7 +45,7 @@ stages:
         workingDirectory: '$(projectRoot)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: 'tfstate2846110543'
+        backendAzureRmStorageAccountName: 'tfstate134732213'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
@@ -218,35 +218,100 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: drop-uitests    # ToDo: Change/provide a name
-            
+            artifact: drop-uitests'    # ToDo: Change/provide a name
+          
           - task: Bash@3
             inputs:
               targetType: 'inline'
               script: |           
-                #! /bin/bash
+                Start-Process powershell -Verb runAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command { 
+                  # Upgrade installed packages
+                  apt-get upgrade -y
+                  # Install Python3 pip
+                  apt-get install python3-pip -y
+                  # Install unzip
+                  apt-get install unzip -y
+                  # Install Chromium browser
+                  apt-get install -y chromium-browser
+                  # Install Selenium Python package
+                  pip3 install selenium
+                  # Change current directory to home folder
+                  cd ~
+                }"
+                $DIR = "C:\Users\devopsagent\app"
+                if (-Not (Test-Path -Path $DIR -PathType Container)) {
+                    New-Item -ItemType Directory -Path $DIR | Out-Null
+                }
+                $sourcePath = "C:\Users\devopsagent\azagent\_work\1\drop-uitests\$(Build.BuildId)-uitests.zip" # Replace with the appropriate source path on your system
+                $destinationPath = "C:\Users\devopsagent\app" # Replace with the appropriate destination path on your system
+                $chromedriverZipPath = "C:\Users\devopsagent\app\chromedriver_linux64.zip" # Replace with the appropriate chromedriver zip path on your system
+
+                # Move the uitests.zip file to the 'app' folder
+                Move-Item -Path $sourcePath -Destination $destinationPath
+
+                # Change current directory to the 'app' folder
+                Set-Location $destinationPath
+
+                # Unzip the uitests.zip file
+                Expand-Archive -Path "$(Build.BuildId)-uitests.zip" -DestinationPath $destinationPath -Force
+
+                # Set the FILE variable to the chromedriver_linux64.zip path
+                $FILE = $chromedriverZipPath
+
+                # Check if the chromedriver file exists, if not, download and install it
+                if (-Not (Test-Path -Path $FILE -PathType Leaf)) {
+                    # Get the latest chromedriver version
+                    $LATEST = (Invoke-WebRequest -Uri "http://chromedriver.storage.googleapis.com/LATEST_RELEASE").Content.Trim()
+
+                    # Download the chromedriver zip file
+                    Invoke-WebRequest -Uri "http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_win64.zip" -OutFile "chromedriver_win64.zip"
+
+                    # Unzip the chromedriver zip file
+                    Expand-Archive -Path "chromedriver_linux64.zip" -DestinationPath $destinationPath -Force
+
+                    # Create a symbolic link to chromedriver for global accessibility
+                    New-Item -ItemType SymbolicLink -Path "C:\Users\devopsagent\AppData\Local\Temp\chromedriver" -Target "$destinationPath\chromedriver.exe" -Force
+                    Move-Item -Path "C:\Users\devopsagent\AppData\Local\Temp\chromedriver" -Destination "C:\Program Files\chromedriver" -Force
+                }
+                # Add the 'app' folder to the PATH environment variable
+                $env:PATH += ";C:\Users\devopsagent\app"
+
+                # Print a message indicating that Selenium Tests are starting
+                Write-Host "Starting Selenium Tests"
+
+                # Run the Python script 'add_remove_from_cart.py' and redirect output to 'selenium.log'
+                python add_remove_from_cart.py >> selenium.log
+
+                # Print a message indicating that Selenium Tests have completed
+                Write-Host "Completed Selenium Tests. Check selenium.log for results."
+
+          # - task: Bash@3
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |           
+          #       #! /bin/bash
                 
-                sudo apt-get upgrade -y
-                sudo apt-get install python3-pip -y
-                sudo apt-get install unzip -y
-                sudo apt-get install -y chromium-browser
-                pip3 install selenium
-                cd ~/
-                DIR='$(projectRoot)/automatedtesting/selenium'
-                if [ ! -d "$DIR" ]; then
-                    mkdir app
-                fi
-                mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
-                cd app
-                unzip -o $(Build.BuildId)-uitests.zip
-                FILE='$(projectRoot)/automatedtesting/selenium/chromedriver_linux64.zip'
-                if [ ! -f "$FILE" ]; then
-                    LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-                    wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-                    unzip -o chromedriver_linux64.zip
-                    sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
-                fi
-                export PATH=$PATH:'$(projectRoot)/automatedtesting/selenium'
-                echo "Starting Selenium Tests"
-                python3 add_remove_from_cart.py >> selenium.log
-                echo "Completed Selenium Tests. Check selenium.log for results."
+          #       sudo apt-get upgrade -y
+          #       sudo apt-get install python3-pip -y
+          #       sudo apt-get install unzip -y
+          #       sudo apt-get install -y chromium-browser
+          #       pip3 install selenium
+          #       cd ~/
+          #       DIR=/home/testuser/app
+          #       if [ ! -d "$DIR" ]; then
+          #           mkdir app
+          #       fi
+          #       mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+          #       cd app
+          #       unzip -o $(Build.BuildId)-uitests.zip
+          #       FILE=/home/testuser/app/chromedriver_linux64.zip
+          #       if [ ! -f "$FILE" ]; then
+          #           LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          #           wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+          #           unzip -o chromedriver_linux64.zip
+          #           sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
+          #       fi
+          #       export PATH=$PATH:/home/testuser/app
+          #       echo "Starting Selenium Tests"
+          #       python3 add_remove_from_cart.py >> selenium.log
+          #       echo "Completed Selenium Tests. Check selenium.log for results."
