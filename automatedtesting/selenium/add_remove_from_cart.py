@@ -57,6 +57,13 @@ def login (user, password):
     cart_icon = driver.find_element('css selector', 'a.shopping_cart_link')
     cart_icon.click()
 
+    # List items in cart
+    cart_item_names = driver.find_elements('css selector', ".inventory_item_name")
+
+    print("Items in the cart:")
+    for item in cart_item_names:
+        print(item.text)
+
     # Remove all items from the cart
     print ('Removing all items from cart.')
     remove_buttons = driver.find_elements('css selector', 'button.cart_button')
